@@ -1,0 +1,781 @@
+[
+  {
+    "id": "pm_vishwakarma",
+    "name": "PM Vishwakarma Scheme",
+    "telugu_name": "పీఎం విశ్వకర్మ యోజన",
+    "description": "Support for traditional artisans and craftspeople through skill upskilling, toolkit grants, and credit support.",
+    "target_business_types": [
+      "Artisans",
+      "Carpenters",
+      "Blacksmiths",
+      "Potters",
+      "Tailors",
+      "Barbers"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan, grant, training",
+    "amount_min": 15000,
+    "amount_max": 300000,
+    "interest_rate": "5%",
+    "documents_required": [
+      "Aadhaar Card",
+      "Mobile Number",
+      "Bank Passbook",
+      "Ration Card"
+    ],
+    "apply_url": "pmvishwakarma.gov.in",
+    "apply_offline": "Common Service Centres (CSC)",
+    "helpline": "18002677777",
+    "processing_time_days": 30,
+    "success_rate": "high",
+    "tags": [
+      "Artisans",
+      "Traditional Crafts",
+      "Skill Development",
+      "Low Interest"
+    ],
+    "telugu_description": "సాంప్రదాయ కళాకారులు మరియు హస్తకళాకారులకు నైపుణ్య శిక్షణ, సాధన మంజూరు మరియు రుణ సహాయం."
+  },
+  {
+    "id": "mudra_shishu",
+    "name": "PMMY Mudra Shishu Loan",
+    "telugu_name": "ముద్రా శిశు రుణం",
+    "description": "Financial assistance for micro-units and small businesses in their initial startup stage.",
+    "target_business_types": [
+      "Micro-enterprises",
+      "Small Shops",
+      "Street Vendors",
+      "Service Providers"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": 65,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan",
+    "amount_min": 5000,
+    "amount_max": 50000,
+    "interest_rate": "9% - 12%",
+    "documents_required": [
+      "Identity Proof",
+      "Address Proof",
+      "Business Identity Proof",
+      "Passport Photos"
+    ],
+    "apply_url": "www.udyamimitra.in",
+    "apply_offline": "Public/Private Sector Banks, RRBs, Micro Finance Institutions",
+    "helpline": "18001801111",
+    "processing_time_days": 7,
+    "success_rate": "high",
+    "tags": [
+      "Microfinance",
+      "Startup",
+      "No Collateral"
+    ],
+    "telugu_description": "చిన్న వ్యాపారాలు మరియు స్టార్టప్‌లకు ఆర్థిక సహాయం."
+  },
+  {
+    "id": "mudra_kishor",
+    "name": "PMMY Mudra Kishor Loan",
+    "telugu_name": "ముద్రా కిషోర్ రుణం",
+    "description": "Loan for established small businesses looking to expand or purchase equipment.",
+    "target_business_types": [
+      "Small Manufacturing",
+      "Retail Trade",
+      "Professional Services"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": 65,
+      "gst_required": true,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan",
+    "amount_min": 50001,
+    "amount_max": 500000,
+    "interest_rate": "10% - 14%",
+    "documents_required": [
+      "Aadhaar",
+      "GST Registration",
+      "Balance Sheet (Last 2 years)",
+      "Income Tax Returns"
+    ],
+    "apply_url": "www.mudra.org.in",
+    "apply_offline": "Local Commercial Banks",
+    "helpline": "1800110001",
+    "processing_time_days": 15,
+    "success_rate": "medium",
+    "tags": [
+      "Business Expansion",
+      "Working Capital"
+    ],
+    "telugu_description": "స్థాపించబడిన చిన్న వ్యాపారాలు విస్తరించడానికి లేదా పరికరాలు కొనుగోలు చేయడానికి రుణం."
+  },
+  {
+    "id": "pmegp",
+    "name": "Prime Minister’s Employment Generation Programme (PMEGP)",
+    "telugu_name": "ప్రధాన మంత్రి ఉపాధి కల్పన పథకం",
+    "description": "Credit-linked subsidy scheme for setting up new micro-enterprises in manufacturing and services.",
+    "target_business_types": [
+      "New Manufacturing Units",
+      "Service Units",
+      "Agro-based Industries"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": true,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "subsidy, loan",
+    "amount_min": 500000,
+    "amount_max": 5000000,
+    "interest_rate": "11% - 13%",
+    "documents_required": [
+      "Project Report",
+      "Caste Certificate",
+      "Education Qualification Certificate",
+      "Aadhaar"
+    ],
+    "apply_url": "www.kviconline.gov.in",
+    "apply_offline": "District Industries Centre (DIC) / KVIC Office",
+    "helpline": "180030000034",
+    "processing_time_days": 60,
+    "success_rate": "medium",
+    "tags": [
+      "Manufacturing",
+      "New Enterprise",
+      "Government Subsidy"
+    ],
+    "telugu_description": "తయారీ మరియు సేవలలో కొత్త సూక్ష్మ సంస్థలను స్థాపించడానికి రుణ-అనుసంధాన సబ్సిడీ పథకం."
+  },
+  {
+    "id": "pm_svanidhi",
+    "name": "PM Street Vendor’s AtmaNirbhar Nidhi",
+    "telugu_name": "పీఎం స్వనిధి",
+    "description": "Collateral-free working capital loans for street vendors to resume livelihoods.",
+    "target_business_types": [
+      "Street Vendors",
+      "Hawkers",
+      "Mobile Carts"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan",
+    "amount_min": 10000,
+    "amount_max": 50000,
+    "interest_rate": "7% Interest Subsidy",
+    "documents_required": [
+      "Certificate of Vending",
+      "Aadhaar Card",
+      "Voter ID"
+    ],
+    "apply_url": "pmsvanidhi.mohua.gov.in",
+    "apply_offline": "Municipal Office / ULB Office",
+    "helpline": "1800111979",
+    "processing_time_days": 10,
+    "success_rate": "high",
+    "tags": [
+      "Street Vendor",
+      "Urban",
+      "Small Loan"
+    ],
+    "telugu_description": "వీధి వ్యాపారులకు జీవనోపాధిని పునఃప్రారంభించడానికి తాకట్టు రహిత వర్కింగ్ క్యాపిటల్ రుణాలు."
+  },
+  {
+    "id": "stand_up_india",
+    "name": "Stand Up India",
+    "telugu_name": "స్టాండప్ ఇండియా",
+    "description": "Loans for SC/ST and Women entrepreneurs for setting up greenfield enterprises.",
+    "target_business_types": [
+      "Manufacturing",
+      "Services",
+      "Trading",
+      "Agri-allied"
+    ],
+    "eligibility_criteria": {
+      "gender": "female",
+      "caste": "sc/st/any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": true,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan",
+    "amount_min": 1000000,
+    "amount_max": 10000000,
+    "interest_rate": "Bank Rate + 3% + Tenor Premium",
+    "documents_required": [
+      "Identity Proof",
+      "Caste Certificate",
+      "Project Report",
+      "Rent Agreement"
+    ],
+    "apply_url": "www.standupmitra.in",
+    "apply_offline": "Scheduled Commercial Banks",
+    "helpline": "18001801111",
+    "processing_time_days": 45,
+    "success_rate": "medium",
+    "tags": [
+      "Women Entrepreneurs",
+      "SC/ST",
+      "Large Capital"
+    ],
+    "telugu_description": "SC/ST మరియు మహిళా వ్యవసాయదారులకు కొత్త సంస్థలను స్థాపించడానికి రుణాలు."
+  },
+  {
+    "id": "t_idea",
+    "name": "T-IDEA (Telangana Industrial Development & Entrepreneur Advancement)",
+    "telugu_name": "టి-ఐడియా",
+    "description": "Incentive scheme providing investment subsidies and power cost reimbursements for MSMEs in Telangana.",
+    "target_business_types": [
+      "MSME Manufacturing",
+      "Industrial Units"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "general/obc/minority",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": true,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "subsidy",
+    "amount_min": 0,
+    "amount_max": 2000000,
+    "interest_rate": "N/A",
+    "documents_required": [
+      "DPR",
+      "TS-iPASS Approval",
+      "Investment Proofs",
+      "Bank Loan Sanction"
+    ],
+    "apply_url": "ipass.telangana.gov.in",
+    "apply_offline": "District Industries Centre (DIC)",
+    "helpline": "040-23441600",
+    "processing_time_days": 90,
+    "success_rate": "medium",
+    "tags": [
+      "State Subsidy",
+      "Manufacturing",
+      "Power Reimbursement"
+    ],
+    "telugu_description": "తెలంగాణలో MSMEలకు పెట్టుబడి సబ్సిడీలు మరియు విద్యుత్ ఖర్చు రీయింబర్స్‌మెంట్‌లు అందించే ప్రోత్సాహక పథకం."
+  },
+  {
+    "id": "t_pride",
+    "name": "T-PRIDE (Telangana Program for Rapid Incubation of Dalit Entrepreneurs)",
+    "telugu_name": "టి-ప్రైడ్",
+    "description": "Targeted incentives for SC/ST and Differently Abled entrepreneurs including higher capital subsidies.",
+    "target_business_types": [
+      "SC/ST Enterprises",
+      "Logistics",
+      "Manufacturing"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "sc/st",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": true,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "subsidy, loan",
+    "amount_min": 0,
+    "amount_max": 7500000,
+    "interest_rate": "Pavala Vaddi (3% interest)",
+    "documents_required": [
+      "Caste Certificate",
+      "Aadhaar",
+      "Business Registration",
+      "Bank Statements"
+    ],
+    "apply_url": "ipass.telangana.gov.in",
+    "apply_offline": "District Industries Centre (DIC)",
+    "helpline": "040-23441600",
+    "processing_time_days": 60,
+    "success_rate": "high",
+    "tags": [
+      "SC/ST Incentives",
+      "High Subsidy",
+      "Telangana State"
+    ],
+    "telugu_description": "SC/ST మరియు వికలాంగ వ్యవసాయదారులకు అధిక మూలధన సబ్సిడీలతో సహా లక్ష్య ప్రోత్సాహకాలు."
+  },
+  {
+    "id": "we_hub",
+    "name": "WE-HUB Startup Support",
+    "telugu_name": "వీ-హబ్",
+    "description": "Incubation and financial linkage support for women-led startups and micro-enterprises.",
+    "target_business_types": [
+      "Women-led Startups",
+      "Micro Enterprises"
+    ],
+    "eligibility_criteria": {
+      "gender": "female",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "grant, training, loan",
+    "amount_min": 50000,
+    "amount_max": 2500000,
+    "interest_rate": "Variable",
+    "documents_required": [
+      "Pitch Deck",
+      "Identity Proof",
+      "Business Model",
+      "Registration Docs"
+    ],
+    "apply_url": "wehub.telangana.gov.in",
+    "apply_offline": "WE-HUB Office, Dr. B.R. Ambedkar Open University Campus, Jubilee Hills",
+    "helpline": "040-23555540",
+    "processing_time_days": 45,
+    "success_rate": "medium",
+    "tags": [
+      "Women Empowerment",
+      "Incubation",
+      "Mentorship"
+    ],
+    "telugu_description": "మహిళల నేతృత్వంలోని స్టార్టప్‌లు మరియు సూక్ష్మ సంస్థలకు ఇంక్యుబేషన్ మరియు ఆర్థిక అనుసంధాన మద్దతు."
+  },
+  {
+    "id": "dalit_bandhu",
+    "name": "Telangana Dalit Bandhu",
+    "telugu_name": "దళిత బంధు",
+    "description": "Direct financial assistance for SC families to start a business without any bank linkage or repayment.",
+    "target_business_types": [
+      "Retail",
+      "Transport",
+      "Manufacturing",
+      "Dairy",
+      "Any viable business"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "sc",
+      "age_min": 18,
+      "age_max": 65,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "grant",
+    "amount_min": 1000000,
+    "amount_max": 1000000,
+    "interest_rate": "0% (Grant)",
+    "documents_required": [
+      "Caste Certificate",
+      "Food Security Card (Ration Card)",
+      "Aadhaar Card",
+      "Bank Account"
+    ],
+    "apply_url": "dalitbandhu.telangana.gov.in",
+    "apply_offline": "District Collector's Office / MRO Office",
+    "helpline": "18004251999",
+    "processing_time_days": 90,
+    "success_rate": "medium",
+    "tags": [
+      "SC Grant",
+      "Full Funding",
+      "Telangana Govt"
+    ],
+    "telugu_description": "SC కుటుంబాలకు వ్యాపారం ప్రారంభించడానికి బ్యాంకు అనుసంధానం లేదా తిరిగి చెల్లింపు లేకుండా ప్రత్యక్ష ఆర్థిక సహాయం."
+  },
+  {
+    "id": "rajiv_yuva_vikasam",
+    "name": "Rajiv Yuva Vikasam",
+    "telugu_name": "రాజీవ్ యువ వికాసం",
+    "description": "Self-employment scheme for unemployed youth from backward and minority communities.",
+    "target_business_types": [
+      "Self-employment Units",
+      "Small Shops",
+      "Service Centers"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "sc/st/obc/minority",
+      "age_min": 18,
+      "age_max": 45,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": 200000
+    },
+    "benefit_type": "loan, subsidy",
+    "amount_min": 100000,
+    "amount_max": 300000,
+    "interest_rate": "Subsidized",
+    "documents_required": [
+      "Income Certificate",
+      "Caste Certificate",
+      "Educational Certificates",
+      "Aadhaar"
+    ],
+    "apply_url": "tsobmms.cgg.gov.in",
+    "apply_offline": "MPDO Office / District BC/SC/Minority Corporation",
+    "helpline": "040-23391326",
+    "processing_time_days": 60,
+    "success_rate": "medium",
+    "tags": [
+      "Youth Employment",
+      "Backward Classes",
+      "Subsidized Loan"
+    ],
+    "telugu_description": "వెనుకబడిన మరియు మైనారిటీ సంఘాల నుండి నిరుద్యోగ యువతకు స్వయం ఉపాధి పథకం."
+  },
+  {
+    "id": "cgtmse",
+    "name": "Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE)",
+    "telugu_name": "సి.జి.టి.ఎం.ఎస్.ఇ గ్యారెంటీ పథకం",
+    "description": "Collateral-free credit facility for MSMEs provided through a guarantee trust.",
+    "target_business_types": [
+      "Manufacturing",
+      "Services",
+      "Retail Trade"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": true,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan guarantee",
+    "amount_min": 500000,
+    "amount_max": 50000000,
+    "interest_rate": "Bank Standard Rates",
+    "documents_required": [
+      "Business Plan",
+      "Udyam Registration",
+      "Financial Statements",
+      "GST Filings"
+    ],
+    "apply_url": "www.cgtmse.in",
+    "apply_offline": "Registered Member Lending Institutions (Banks)",
+    "helpline": "022-61437805",
+    "processing_time_days": 30,
+    "success_rate": "medium",
+    "tags": [
+      "No Collateral",
+      "Large Loan",
+      "Central Government"
+    ],
+    "telugu_description": "MSMEలకు గ్యారెంటీ ట్రస్ట్ ద్వారా అందించబడే తాకట్టు రహిత రుణ సౌకర్యం."
+  },
+  {
+    "id": "pm_swarozgar_transport",
+    "name": "PM Swarozgar Yojana (Auto/Taxi)",
+    "telugu_name": "పీఎం స్వరోజ్గార్ యోజన (ఆటో/టాక్సీ)",
+    "description": "Financial assistance for purchasing auto-rickshaws, taxis, and other commercial vehicles for self-employment.",
+    "target_business_types": [
+      "Auto-rickshaw Drivers",
+      "Taxi Drivers",
+      "Transport Services",
+      "Commercial Vehicle Operators"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": 55,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_turnover": null
+    },
+    "benefit_type": "loan, subsidy",
+    "amount_min": 100000,
+    "amount_max": 1000000,
+    "interest_rate": "8% - 10%",
+    "documents_required": [
+      "Aadhaar Card",
+      "Driving License",
+      "Address Proof",
+      "Bank Account Statement",
+      "Passport Photos",
+      "Vehicle Quotation"
+    ],
+    "apply_url": "www.udyamimitra.in",
+    "apply_offline": "District Industries Centre (DIC) / Nationalized Banks",
+    "helpline": "18001801111",
+    "processing_time_days": 21,
+    "success_rate": "high",
+    "tags": [
+      "Transport",
+      "Self-employment",
+      "Vehicle Loan",
+      "Subsidy"
+    ],
+    "telugu_description": "స్వయం ఉపాధి కోసం ఆటో-రిక్షాలు, టాక్సీలు మరియు ఇతర వాణిజ్య వాహనాలను కొనుగోలు చేయడానికి ఆర్థిక సహాయం."
+  },
+  {
+    "id": "mahalakshmi_scheme",
+    "name": "Mahalakshmi Scheme",
+    "telugu_name": "మహాలక్ష్మి పథకం",
+    "description": "Financial assistance of ₹2,500 monthly and free travel in TSRTC buses for women.",
+    "target_individual_types": [
+      "Women",
+      "Heads of Household"
+    ],
+    "eligibility_criteria": {
+      "gender": "female",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "white_ration_card": true
+    },
+    "benefit_type": "grant",
+    "amount_min": 2500,
+    "amount_max": 30000,
+    "unit": "INR per year/month",
+    "documents_required": [
+      "Aadhaar Card",
+      "White Ration Card",
+      "Bank Passbook"
+    ],
+    "apply_url": "https://prajapalana.telangana.gov.in",
+    "apply_offline": "Grama Sabhas / Praja Palana Centers",
+    "helpline": "1100",
+    "processing_time_days": 45,
+    "success_rate": "high",
+    "tags": [
+      "Women Welfare",
+      "Monthly Income",
+      "Free Travel"
+    ],
+    "telugu_description": "మహిళలకు నెలవారీ ₹2,500 ఆర్థిక సహాయం మరియు TSRTC బస్సుల్లో ఉచిత ప్రయాణం."
+  },
+  {
+    "id": "rythu_bharosa",
+    "name": "Rythu Bharosa",
+    "telugu_name": "రైతు భరోసా",
+    "description": "Investment support for farmers and financial aid for tenant farmers and laborers.",
+    "target_individual_types": [
+      "Farmers",
+      "Agricultural Laborers",
+      "Tenant Farmers"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "land_ownership": "required"
+    },
+    "benefit_type": "grant",
+    "amount_min": 12000,
+    "amount_max": 15000,
+    "unit": "INR per acre/year",
+    "documents_required": [
+      "Pattadar Passbook",
+      "Aadhaar Card",
+      "Bank Account Details"
+    ],
+    "apply_url": "https://rythubandhu.telangana.gov.in",
+    "apply_offline": "Mandal Agriculture Office",
+    "helpline": "040-23383520",
+    "processing_time_days": 60,
+    "success_rate": "high",
+    "tags": [
+      "Agriculture",
+      "Farmer Support",
+      "Annual Grant"
+    ],
+    "telugu_description": "రైతులకు పెట్టుబడి మద్దతు మరియు కౌలు రైతులు మరియు కూలీలకు ఆర్థిక సహాయం."
+  },
+  {
+    "id": "gruha_jyothi",
+    "name": "Gruha Jyothi",
+    "telugu_name": "గృహ జ్యోతి",
+    "description": "Provision of free domestic electricity up to 200 units per month for households.",
+    "target_individual_types": [
+      "BPL Families",
+      "Domestic Consumers"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": false,
+      "max_units_usage": 200
+    },
+    "benefit_type": "subsidy",
+    "amount_min": 0,
+    "amount_max": 200,
+    "unit": "Units per month",
+    "documents_required": [
+      "Electricity Bill",
+      "Aadhaar Card",
+      "White Ration Card"
+    ],
+    "apply_url": "https://prajapalana.telangana.gov.in",
+    "apply_offline": "Electricity Department Office / Praja Palana Center",
+    "helpline": "1912",
+    "processing_time_days": 30,
+    "success_rate": "high",
+    "tags": [
+      "Free Power",
+      "Household",
+      "Subsidy"
+    ],
+    "telugu_description": "గృహాలకు నెలకు 200 యూనిట్ల వరకు ఉచిత విద్యుత్ సరఫరా."
+  },
+  {
+    "id": "indiramma_indlu",
+    "name": "Indiramma Indlu",
+    "telugu_name": "ఇందిరమ్మ ఇండ్లు",
+    "description": "Financial aid of ₹5 lakh for constructing houses on own plots for the homeless.",
+    "target_individual_types": [
+      "Homeless Families",
+      "Plot Owners"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "white_ration_card": true
+    },
+    "benefit_type": "grant",
+    "amount_min": 500000,
+    "amount_max": 500000,
+    "unit": "INR",
+    "documents_required": [
+      "Land Documents",
+      "Aadhaar Card",
+      "White Ration Card",
+      "Income Certificate"
+    ],
+    "apply_url": "https://housing.telangana.gov.in",
+    "apply_offline": "District Housing Office / Collectorate",
+    "helpline": "040-23225018",
+    "processing_time_days": 120,
+    "success_rate": "medium",
+    "tags": [
+      "Housing",
+      "Construction",
+      "Financial Aid"
+    ],
+    "telugu_description": "నిరాశ్రయులైన కుటుంబాలకు స్వంత స్థలాల్లో ఇళ్లు నిర్మించడానికి ₹5 లక్షల ఆర్థిక సహాయం."
+  },
+  {
+    "id": "rajiv_aarogyasri",
+    "name": "Rajiv Aarogyasri (Cheyutha)",
+    "telugu_name": "రాజీవ్ ఆరోగ్యశ్రీ",
+    "description": "Health insurance coverage up to ₹10 lakh per family for major ailments.",
+    "target_individual_types": [
+      "BPL Families",
+      "Patients"
+    ],
+    "eligibility_criteria": {
+      "gender": "any",
+      "caste": "any",
+      "age_min": 0,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": false,
+      "white_ration_card": true
+    },
+    "benefit_type": "insurance",
+    "amount_min": 0,
+    "amount_max": 1000000,
+    "unit": "INR coverage",
+    "documents_required": [
+      "White Ration Card",
+      "Aadhaar Card",
+      "Medical Reports"
+    ],
+    "apply_url": "https://www.aarogyasri.telangana.gov.in",
+    "apply_offline": "Aarogyasri Help Desk at Empanelled Hospitals",
+    "helpline": "104",
+    "processing_time_days": 1,
+    "success_rate": "high",
+    "tags": [
+      "Healthcare",
+      "Insurance",
+      "Emergency"
+    ],
+    "telugu_description": "ప్రధాన వ్యాధులకు కుటుంబానికి ₹10 లక్షల వరకు ఆరోగ్య బీమా కవరేజీ."
+  },
+  {
+    "id": "kalyana_lakshmi",
+    "name": "Kalyana Lakshmi / Shaadi Mubarak",
+    "telugu_name": "కళ్యాణ లక్ష్మి / షాదీ ముబారక్",
+    "description": "Financial assistance for the marriage of girls from BPL families.",
+    "target_individual_types": [
+      "BPL Families",
+      "Unmarried Girls"
+    ],
+    "eligibility_criteria": {
+      "gender": "female",
+      "caste": "sc/st/bc/minority/ebc",
+      "age_min": 18,
+      "age_max": null,
+      "gst_required": false,
+      "bank_account_required": true,
+      "max_annual_income": 200000
+    },
+    "benefit_type": "grant",
+    "amount_min": 100116,
+    "amount_max": 100116,
+    "unit": "INR",
+    "documents_required": [
+      "Marriage Certificate",
+      "Wedding Card",
+      "Aadhaar Card",
+      "Income Certificate",
+      "Bank Passbook"
+    ],
+    "apply_url": "https://telanganaepass.cgg.gov.in",
+    "apply_offline": "MRO / Tehsildar Office",
+    "helpline": "040-23120311",
+    "processing_time_days": 60,
+    "success_rate": "high",
+    "tags": [
+      "Marriage Aid",
+      "Social Welfare",
+      "Women Support"
+    ],
+    "telugu_description": "BPL కుటుంబాల నుండి అమ్మాయిల వివాహానికి ఆర్థిక సహాయం."
+  }
+]
