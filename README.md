@@ -6,11 +6,32 @@ A full-stack web application that helps Indian citizens discover government welf
 
 ---
 
+## 🔗 Mandatory Assignment Deliverables
+
+* 🌐 **Hosted Application Demo (Frontend):** [https://scheme-navigator-ochre.vercel.app](https://scheme-navigator-ochre.vercel.app/)
+* ⚡ **Backend API Endpoint (Render):** [https://scheme-navigator-pl4b.onrender.com](https://scheme-navigator-pl4b.onrender.com/health)
+* 🎥 **Screen Recording Walkthrough:** [Watch Demo Video (Google Drive)](https://drive.google.com/file/d/1Dy3-_Dg83eK-xSwB090U898xe7cj0pjt/view?usp=sharing)
+* 📦 **GitHub Repository:** [https://github.com/Mukthanand21/scheme-navigator](https://github.com/Mukthanand21/scheme-navigator)
+
+---
+
+## 🖼️ Application Screenshots
+
+| 1. Gazette Masthead & Hero Landing | 2. Numbered Citizen Stepper Form |
+|---|---|
+| ![Hero Landing](docs/screenshots/hero_landing.png) | ![Citizen Form Stepper](docs/screenshots/citizen_form.png) |
+
+| 3. Scheme Catalog & Sticky Filter Ribbon | 4. Multi-hop Graph Eligibility Matching |
+|---|---|
+| ![Scheme Catalog](docs/screenshots/scheme_catalog.png) | ![Eligibility Results](docs/screenshots/eligibility_results.png) |
+
+---
+
 ## 📋 Use Case
 
 Government welfare schemes in India have complex, overlapping eligibility criteria — gender restrictions, caste-based reservations, age ranges, income caps, required documents, and prerequisite registrations (GST, bank account, ration card, land ownership). A citizen shouldn't need to manually cross-reference 19+ scheme PDFs.
 
-**Scheme Navigator** lets a citizen fill in their profile once and instantly see every scheme they qualify for — with document requirements, apply links, Telugu translations, and "you may also qualify for" recommendations.
+**Scheme Navigator** lets a citizen fill in their profile once and instantly see every scheme they qualify for — with document requirements, apply links, bilingual Telugu translations, and "you may also qualify for" recommendations.
 
 ---
 
@@ -19,7 +40,7 @@ Government welfare schemes in India have complex, overlapping eligibility criter
 ### The Problem with SQL
 
 In a relational model, eligibility matching requires:
-- 6+ JOIN tables (scheme_genders, scheme_castes, scheme_requirements, scheme_tags, scheme_documents, citizen_flags)
+- 6+ JOIN tables (`scheme_genders`, `scheme_castes`, `scheme_requirements`, `scheme_tags`, `scheme_documents`, `citizen_flags`)
 - Correlated subqueries for "citizen satisfies ALL required flags" (not just ANY)
 - COALESCE/NULL handling across every optional range column
 - Self-joins on junction tables for "related schemes"
@@ -41,27 +62,50 @@ One Cypher query walks these three 2-hop paths simultaneously, applies property 
 ## 📊 Graph Schema
 
 ```mermaid
-graph LR
-    S["Scheme"] -->|TARGETS| BT["BusinessType"]
-    S -->|TARGETS| IT["IndividualType"]
-    S -->|ALLOWS_GENDER| G["Gender"]
-    S -->|ALLOWS_CASTE| CC["CasteCategory"]
-    S -->|REQUIRES_FLAG| RF["RequirementFlag"]
-    S -->|REQUIRES_DOCUMENT| D["Document"]
-    S -->|TAGGED| T["Tag"]
-    C["Citizen"] -->|HAS_GENDER| G
+flowchart LR
+    subgraph Core ["Core Entities"]
+        C["Citizen"]
+        S["Scheme"]
+    end
+
+    subgraph Eligibility ["Eligibility Traversal Nodes"]
+        G["Gender"]
+        CC["CasteCategory"]
+        RF["RequirementFlag"]
+    end
+
+    subgraph Metadata ["Scheme Details & Metadata"]
+        BT["BusinessType"]
+        IT["IndividualType"]
+        D["Document"]
+        T["Tag"]
+    end
+
+    %% Citizen Traversal Edges
+    C -->|HAS_GENDER| G
     C -->|HAS_CASTE| CC
     C -->|SATISFIES| RF
 
-    style S fill:#7c3aed,color:#fff
-    style C fill:#f97316,color:#fff
-    style G fill:#38bdf8,color:#000
-    style CC fill:#38bdf8,color:#000
-    style RF fill:#10b981,color:#000
-    style T fill:#a78bfa,color:#000
-    style D fill:#fbbf24,color:#000
-    style BT fill:#fb7185,color:#000
-    style IT fill:#fb7185,color:#000
+    %% Scheme Requirement Edges
+    S -->|ALLOWS_GENDER| G
+    S -->|ALLOWS_CASTE| CC
+    S -->|REQUIRES_FLAG| RF
+
+    %% Scheme Metadata Edges
+    S -->|TARGETS| BT
+    S -->|TARGETS| IT
+    S -->|REQUIRES_DOCUMENT| D
+    S -->|TAGGED| T
+
+    style S fill:#7c3aed,color:#fff,stroke:#5b21b6,stroke-width:2px
+    style C fill:#f97316,color:#fff,stroke:#c2410c,stroke-width:2px
+    style G fill:#0284c7,color:#fff,stroke:#0369a1,stroke-width:2px
+    style CC fill:#0284c7,color:#fff,stroke:#0369a1,stroke-width:2px
+    style RF fill:#059669,color:#fff,stroke:#047857,stroke-width:2px
+    style D fill:#d97706,color:#fff,stroke:#b45309,stroke-width:2px
+    style T fill:#8b5cf6,color:#fff,stroke:#6d28d9,stroke-width:2px
+    style BT fill:#e11d48,color:#fff,stroke:#be123c,stroke-width:2px
+    style IT fill:#e11d48,color:#fff,stroke:#be123c,stroke-width:2px
 ```
 
 ### Node Counts (after seeding)
@@ -109,54 +153,80 @@ WITH s2, count(DISTINCT t) AS shared_tags
 
 ---
 
-## 🚀 Setup
+## 🚀 Setup Instructions
 
 ### Prerequisites
 - Python 3.10+
 - Node.js 18+
-- A [CognoDB Cloud](https://cognodb.com) instance (free tier available)
+- A CognoDB Cloud Instance
 
-### 1. Clone & Configure
+---
+
+### 1. Create a CognoDB Cloud Instance
+Follow these steps to provision a free instance on CognoDB Cloud:
+1. **Sign Up:** Go to [console.cognodb.com/signup](https://console.cognodb.com/signup) and create a free account (no credit card required).
+2. **Create Instance:** From the CognoDB console dashboard, click **Create Instance**. Choose the free (`c0`) tier and select your preferred deployment region.
+3. **Copy Credentials:** Once provisioned (takes under a minute), copy:
+   * **Connection URI:** `bolt+s://<instance-id>.databases.cognodb.cloud`
+   * **Password:** Generated password for the `cognodb` user (displayed once).
+4. **Save Secrets:** Keep these credentials ready to configure in step 2 below.
+
+---
+
+### 2. Clone & Configure Application
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/Mukthanand21/scheme-navigator.git
 cd scheme-navigator
 
-# Backend
+# Setup Backend Virtual Environment
 cd backend
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Create .env from template
+# Create .env configuration
 cp .env.example .env
-# Edit .env with your CognoDB credentials
 ```
 
-### 2. Seed the Database
+Edit `backend/.env` with your CognoDB credentials:
+```env
+NEO4J_URI=bolt+s://<your-instance-id>.databases.cognodb.cloud
+NEO4J_USER=cognodb
+NEO4J_PASSWORD=<your-generated-password>
+```
+
+---
+
+### 3. Seed the Graph Database
 
 ```bash
 cd backend
 python -m app.seed
 ```
 
-This is idempotent (uses MERGE) — safe to re-run.
+*Note: The seeder script is idempotent (uses Cypher `MERGE`) and safe to execute multiple times.*
 
-### 3. Start Backend
+---
+
+### 4. Start Backend Server
 
 ```bash
+cd backend
 uvicorn app.main:app --reload --port 8000
 ```
+Backend API will run at `http://localhost:8000` (interactive Swagger documentation available at `/docs`).
 
-### 4. Start Frontend
+---
+
+### 5. Start Frontend Development Server
 
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-
-Open http://localhost:5173
+Open `http://localhost:5173` in your browser.
 
 ---
 
@@ -167,14 +237,14 @@ scheme-navigator/
 ├── backend/
 │   ├── app/
 │   │   ├── config.py      # Env var loading (pydantic-settings)
-│   │   ├── db.py           # Neo4j driver wrapper
+│   │   ├── db.py           # Neo4j driver wrapper & health checks
 │   │   ├── seed.py         # Idempotent graph seeder
 │   │   ├── queries.py      # Parameterized Cypher queries
 │   │   ├── models.py       # Pydantic request/response models
 │   │   └── main.py         # FastAPI routes
 │   ├── schemes.json        # 19 scheme seed data
 │   └── requirements.txt
-├── frontend/               # Vite + React + TypeScript
+├── frontend/               # Vite + React 18 + TypeScript
 │   └── src/
 │       ├── api/client.ts   # Typed API client
 │       ├── components/     # SchemeCard, CitizenForm, etc.
@@ -189,9 +259,9 @@ scheme-navigator/
 ## 🔐 Security
 
 - All credentials read from environment variables via `python-dotenv` + `pydantic-settings`
-- `.env` is gitignored — never committed
-- All Cypher queries use driver parameterization — no string concatenation
-- CORS middleware configured (tighten `allow_origins` for production)
+- `.env` is gitignored — never committed to version control
+- All Cypher queries use driver parameterization — zero string concatenation
+- CORS middleware configured safely
 
 ---
 
@@ -201,13 +271,14 @@ scheme-navigator/
 |--------|------|-------------|
 | `GET` | `/health` | Health check (API + DB status) |
 | `POST` | `/citizens` | Create citizen profile |
-| `GET` | `/citizens/{id}/eligible-schemes` | Find eligible schemes |
+| `GET` | `/citizens/{id}/eligible-schemes` | Find eligible schemes (multi-hop traversal) |
 | `GET` | `/schemes` | List all schemes |
 | `GET` | `/schemes/{id}` | Scheme detail |
-| `GET` | `/schemes/{id}/related` | Related schemes |
+| `GET` | `/schemes/{id}/related` | Tag-weighted related schemes |
 
 ---
 
-## 📝 License
+## 📝 License & Submission Info
 
-Built for the Wexa AI / CognoDB take-home assignment.
+Built for the Wexa AI / CognoDB Take-Home Assignment.  
+Submitted by **Mukthanand** (`hr@wexa.ai`).
