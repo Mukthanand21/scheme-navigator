@@ -11,12 +11,31 @@ function formatAmount(n?: number | null): string {
 }
 
 export function RelatedSchemes({ schemeId }: { schemeId: string }) {
+  const [prevSchemeId, setPrevSchemeId] = useState(schemeId);
   const [related, setRelated] = useState<RelatedSchemeResponse[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  if (schemeId !== prevSchemeId) {
+    setPrevSchemeId(schemeId);
     setLoading(true);
-    api.getRelatedSchemes(schemeId).then(setRelated).catch(() => setRelated([])).finally(() => setLoading(false));
+    setRelated([]);
+  }
+
+  useEffect(() => {
+    let active = true;
+    api.getRelatedSchemes(schemeId)
+      .then((res) => {
+        if (active) setRelated(res);
+      })
+      .catch(() => {
+        if (active) setRelated([]);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
   }, [schemeId]);
 
   if (loading) return <div className="state-container" style={{ padding: "40px" }}><div className="spinner" /></div>;

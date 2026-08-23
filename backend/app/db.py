@@ -3,11 +3,10 @@ Neo4j/CognoDB driver connection wrapper.
 Provides connection management, health checks, and graceful error handling.
 """
 
-from contextlib import asynccontextmanager
-from typing import Optional
+from typing import Any
 
-from neo4j import GraphDatabase, Driver
-from neo4j.exceptions import ServiceUnavailable, AuthError
+from neo4j import Driver, GraphDatabase
+from neo4j.exceptions import AuthError, ServiceUnavailable
 
 from app.config import get_settings
 
@@ -15,8 +14,8 @@ from app.config import get_settings
 class Neo4jConnection:
     """Wrapper around the Neo4j Python driver for CognoDB."""
 
-    def __init__(self):
-        self._driver: Optional[Driver] = None
+    def __init__(self) -> None:
+        self._driver: Driver | None = None
 
     def connect(self) -> None:
         """
@@ -34,7 +33,7 @@ class Neo4jConnection:
                 f"\n❌ Authentication failed for CognoDB.\n"
                 f"   Check COGNODB_USER and COGNODB_PASSWORD.\n"
                 f"   Detail: {e}"
-            )
+            ) from e
 
     def close(self) -> None:
         """Close the driver connection and release resources."""
@@ -69,13 +68,17 @@ class Neo4jConnection:
             print(f"❌ CognoDB authentication failed: {e}")
             raise
 
-    def execute_read(self, query: str, parameters: dict = None):
+    def execute_read(
+        self, query: str, parameters: dict[str, Any] | None = None
+    ) -> list[dict[str, Any]]:
         """Execute a read transaction and return list of record dicts."""
         with self.driver.session() as session:
             result = session.run(query, parameters or {})
             return [record.data() for record in result]
 
-    def execute_write(self, query: str, parameters: dict = None):
+    def execute_write(
+        self, query: str, parameters: dict[str, Any] | None = None
+    ) -> list[dict[str, Any]]:
         """Execute a write transaction and return list of record dicts."""
         with self.driver.session() as session:
             result = session.run(query, parameters or {})
@@ -83,7 +86,7 @@ class Neo4jConnection:
 
 
 # Module-level singleton
-_connection: Optional[Neo4jConnection] = None
+_connection: Neo4jConnection | None = None
 
 
 def get_db() -> Neo4jConnection:

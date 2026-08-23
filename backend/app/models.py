@@ -2,11 +2,10 @@
 Pydantic models for API request/response validation.
 """
 
-from typing import Optional
 from pydantic import BaseModel, Field
 
-
 # ── Request Models ───────────────────────────────────────────────────────────
+
 
 class CitizenCreate(BaseModel):
     """Request body for POST /citizens — creates a citizen profile."""
@@ -22,16 +21,14 @@ class CitizenCreate(BaseModel):
         pattern="^(sc|st|obc|bc|ebc|general|minority)$",
         description="Caste category (lowercase)",
     )
-    annual_income: Optional[int] = Field(
-        None, ge=0, description="Annual income in INR"
-    )
-    annual_turnover: Optional[int] = Field(
+    annual_income: int | None = Field(None, ge=0, description="Annual income in INR")
+    annual_turnover: int | None = Field(
         None, ge=0, description="Annual business turnover in INR"
     )
-    units_usage: Optional[int] = Field(
+    units_usage: int | None = Field(
         None, ge=0, description="Monthly electricity units usage"
     )
-    business_type: Optional[str] = Field(
+    business_type: str | None = Field(
         None, description="Type of business (if applicable)"
     )
     has_bank_account: bool = Field(False, description="Has a bank account?")
@@ -42,6 +39,7 @@ class CitizenCreate(BaseModel):
 
 # ── Response Models ──────────────────────────────────────────────────────────
 
+
 class CitizenResponse(BaseModel):
     """Response after creating a citizen profile."""
 
@@ -49,10 +47,10 @@ class CitizenResponse(BaseModel):
     age: int
     gender: str
     caste: str
-    annual_income: Optional[int] = None
-    annual_turnover: Optional[int] = None
-    units_usage: Optional[int] = None
-    business_type: Optional[str] = None
+    annual_income: int | None = None
+    annual_turnover: int | None = None
+    units_usage: int | None = None
+    business_type: str | None = None
     satisfied_flags: list[str] = Field(
         default_factory=list,
         description="List of RequirementFlag names this citizen satisfies",
@@ -64,20 +62,20 @@ class SchemeResponse(BaseModel):
 
     id: str
     name: str
-    telugu_name: Optional[str] = None
-    description: Optional[str] = None
-    telugu_description: Optional[str] = None
-    benefit_type: Optional[str] = None
-    amount_min: Optional[float] = None
-    amount_max: Optional[float] = None
-    interest_rate: Optional[str] = None
-    unit: Optional[str] = None
-    apply_url: Optional[str] = None
-    apply_offline: Optional[str] = None
-    helpline: Optional[str] = None
-    processing_time_days: Optional[int] = None
-    success_rate: Optional[str] = None
-    success_rank: Optional[int] = None
+    telugu_name: str | None = None
+    description: str | None = None
+    telugu_description: str | None = None
+    benefit_type: str | None = None
+    amount_min: float | None = None
+    amount_max: float | None = None
+    interest_rate: str | None = None
+    unit: str | None = None
+    apply_url: str | None = None
+    apply_offline: str | None = None
+    helpline: str | None = None
+    processing_time_days: int | None = None
+    success_rate: str | None = None
+    success_rank: int | None = None
     documents: list[str] = Field(default_factory=list)
     tags: list[str] = Field(default_factory=list)
     business_types: list[str] = Field(default_factory=list)
@@ -88,17 +86,18 @@ class SchemeResponse(BaseModel):
 class SchemeDetailResponse(SchemeResponse):
     """Extended scheme detail with eligibility criteria."""
 
-    age_min: Optional[int] = None
-    age_max: Optional[int] = None
-    max_annual_income: Optional[int] = None
-    max_annual_turnover: Optional[int] = None
-    max_units_usage: Optional[int] = None
+    age_min: int | None = None
+    age_max: int | None = None
+    max_annual_income: int | None = None
+    max_annual_turnover: int | None = None
+    max_units_usage: int | None = None
     genders: list[str] = Field(default_factory=list)
     castes: list[str] = Field(default_factory=list)
 
 
 class EligibleSchemeResponse(SchemeResponse):
     """Scheme returned as part of eligibility results."""
+
     pass
 
 
@@ -107,14 +106,14 @@ class RelatedSchemeResponse(BaseModel):
 
     id: str
     name: str
-    telugu_name: Optional[str] = None
-    description: Optional[str] = None
-    benefit_type: Optional[str] = None
-    amount_min: Optional[float] = None
-    amount_max: Optional[float] = None
-    interest_rate: Optional[str] = None
-    success_rate: Optional[str] = None
-    apply_url: Optional[str] = None
+    telugu_name: str | None = None
+    description: str | None = None
+    benefit_type: str | None = None
+    amount_min: float | None = None
+    amount_max: float | None = None
+    interest_rate: str | None = None
+    success_rate: str | None = None
+    apply_url: str | None = None
     shared_tags: int = 0
     shared_flags: int = 0
     similarity_score: int = 0
@@ -128,4 +127,4 @@ class HealthResponse(BaseModel):
 
     status: str
     database: str
-    message: Optional[str] = None
+    message: str | None = None

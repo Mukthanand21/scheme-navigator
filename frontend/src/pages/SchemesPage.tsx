@@ -4,8 +4,10 @@ import type { SchemeResponse } from "../types";
 import { SchemeList } from "../components/SchemeList";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { ErrorState } from "../components/ErrorState";
+import { useLanguage } from "../i18n/LanguageContext";
 
 export function SchemesPage() {
+  const { t } = useLanguage();
   const [schemes, setSchemes] = useState<SchemeResponse[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -19,16 +21,31 @@ export function SchemesPage() {
       .finally(() => setLoading(false));
   };
 
-  useEffect(fetchSchemes, []);
+  useEffect(() => {
+    let active = true;
+    api.listSchemes()
+      .then((res) => {
+        if (active) setSchemes(res);
+      })
+      .catch((err) => {
+        if (active) setError(err.message);
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   return (
     <div className="page">
       <div className="container">
         <div className="page-header">
-          <h1>All Government Schemes</h1>
-          <p>Browse all 19 central and state government welfare and business schemes.</p>
+          <h1>{t("browseTitle")}</h1>
+          <p>{t("browseSubtitle")}</p>
         </div>
-        {loading && <LoadingSpinner message="Loading schemes..." />}
+        {loading && <LoadingSpinner message={t("loading")} />}
         {error && <ErrorState message={error} onRetry={fetchSchemes} />}
         {!loading && !error && <SchemeList schemes={schemes} />}
       </div>

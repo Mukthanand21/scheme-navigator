@@ -25,3 +25,8 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Caches
+.mypy_cache/
+.ruff_cache/
+

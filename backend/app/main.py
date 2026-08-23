@@ -11,14 +11,15 @@ Routes:
 """
 
 import uuid
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import Optional
+from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from neo4j.exceptions import ServiceUnavailable
 
-from app.db import get_db, close_db
+from app.db import Neo4jConnection, close_db, get_db
 from app.models import (
     CitizenCreate,
     CitizenResponse,
@@ -36,11 +37,11 @@ from app.queries import (
     RELATED_SCHEMES,
 )
 
-
 # ── Lifespan ─────────────────────────────────────────────────────────────────
 
+
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     """Startup: connect to DB. Shutdown: close connection."""
     try:
         db = get_db()
@@ -56,7 +57,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Scheme Navigator",
-    description="Discover Indian government welfare and business schemes you're eligible for.",
+    description=(
+        "Discover Indian government welfare and business schemes you're eligible for."
+    ),
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -72,7 +75,8 @@ app.add_middleware(
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
-def _get_db_or_503():
+
+def _get_db_or_503() -> Neo4jConnection:
     """Get DB connection or raise 503 if unreachable."""
     try:
         db = get_db()
@@ -80,21 +84,26 @@ def _get_db_or_503():
         db.driver.verify_connectivity()
         return db
     except (ServiceUnavailable, RuntimeError, Exception) as e:
+        detail_msg = (
+            "Database is currently unreachable. "
+            f"Please try again later. ({type(e).__name__})"
+        )
         raise HTTPException(
             status_code=503,
-            detail=f"Database is currently unreachable. Please try again later. ({type(e).__name__})",
-        )
+            detail=detail_msg,
+        ) from e
 
 
-def _filter_none_from_list(lst: list) -> list:
+def _filter_none_from_list(lst: list[Any]) -> list[Any]:
     """Remove None values from collected lists (OPTIONAL MATCH artifacts)."""
     return [x for x in lst if x is not None]
 
 
 # ── Routes ───────────────────────────────────────────────────────────────────
 
+
 @app.get("/health", response_model=HealthResponse, tags=["Health"])
-async def health_check():
+async def health_check() -> HealthResponse:
     """Check if the API and database are operational."""
     try:
         db = get_db()
@@ -109,10 +118,10 @@ async def health_check():
 
 
 @app.post("/citizens", response_model=CitizenResponse, tags=["Citizens"])
-async def create_citizen(citizen: CitizenCreate):
+async def create_citizen(citizen: CitizenCreate) -> CitizenResponse:
     """
     Create a citizen profile in the graph database.
-    
+
     UUID is generated here in the route (not in Cypher or frontend).
     Creates the Citizen node plus HAS_GENDER, HAS_CASTE, and SATISFIES relationships.
     """
@@ -148,7 +157,9 @@ async def create_citizen(citizen: CitizenCreate):
             },
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to create citizen: {e}")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to create citizen: {e}"
+        ) from e
 
     return CitizenResponse(
         id=citizen_id,
@@ -168,10 +179,10 @@ async def create_citizen(citizen: CitizenCreate):
     response_model=list[EligibleSchemeResponse],
     tags=["Citizens"],
 )
-async def get_eligible_schemes(citizen_id: str):
+async def get_eligible_schemes(citizen_id: str) -> list[EligibleSchemeResponse]:
     """
     Find all schemes a citizen is eligible for.
-    
+
     Traverses the graph starting from the Citizen node through shared
     Gender and CasteCategory nodes to reach matching Scheme nodes.
     Only citizen_id is passed — all attributes are read from the graph.
@@ -184,7 +195,9 @@ async def get_eligible_schemes(citizen_id: str):
         {"citizen_id": citizen_id},
     )
     if not citizen_check:
-        raise HTTPException(status_code=404, detail=f"Citizen '{citizen_id}' not found.")
+        raise HTTPException(
+            status_code=404, detail=f"Citizen '{citizen_id}' not found."
+        )
 
     try:
         results = db.execute_read(
@@ -192,7 +205,7 @@ async def get_eligible_schemes(citizen_id: str):
             {"citizen_id": citizen_id},
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Query failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Query failed: {e}") from e
 
     return [
         EligibleSchemeResponse(
@@ -224,16 +237,16 @@ async def get_eligible_schemes(citizen_id: str):
 
 @app.get("/schemes", response_model=list[SchemeResponse], tags=["Schemes"])
 async def list_schemes(
-    benefit_type: Optional[str] = Query(None, description="Filter by benefit type"),
-    tag: Optional[str] = Query(None, description="Filter by tag"),
-):
+    benefit_type: str | None = Query(None, description="Filter by benefit type"),
+    tag: str | None = Query(None, description="Filter by tag"),
+) -> list[SchemeResponse]:
     """List all schemes, optionally filtered by benefit_type or tag."""
     db = _get_db_or_503()
 
     try:
         results = db.execute_read(LIST_SCHEMES)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Query failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Query failed: {e}") from e
 
     schemes = [
         SchemeResponse(
@@ -262,7 +275,9 @@ async def list_schemes(
 
     # Apply optional filters
     if benefit_type:
-        schemes = [s for s in schemes if benefit_type.lower() in (s.benefit_type or "").lower()]
+        schemes = [
+            s for s in schemes if benefit_type.lower() in (s.benefit_type or "").lower()
+        ]
     if tag:
         schemes = [s for s in schemes if tag.lower() in [t.lower() for t in s.tags]]
 
@@ -270,14 +285,14 @@ async def list_schemes(
 
 
 @app.get("/schemes/{scheme_id}", response_model=SchemeDetailResponse, tags=["Schemes"])
-async def get_scheme(scheme_id: str):
+async def get_scheme(scheme_id: str) -> SchemeDetailResponse:
     """Get detailed information about a specific scheme."""
     db = _get_db_or_503()
 
     try:
         results = db.execute_read(GET_SCHEME, {"scheme_id": scheme_id})
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Query failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Query failed: {e}") from e
 
     if not results:
         raise HTTPException(status_code=404, detail=f"Scheme '{scheme_id}' not found.")
@@ -320,10 +335,10 @@ async def get_scheme(scheme_id: str):
     response_model=list[RelatedSchemeResponse],
     tags=["Schemes"],
 )
-async def get_related_schemes(scheme_id: str):
+async def get_related_schemes(scheme_id: str) -> list[RelatedSchemeResponse]:
     """
     Find schemes similar to a given scheme, based on shared Tag nodes.
-    
+
     Uses Tag-weighted similarity (55 distinct tags, high discriminative power).
     RequirementFlag sharing is a secondary signal.
     """
@@ -340,7 +355,7 @@ async def get_related_schemes(scheme_id: str):
     try:
         results = db.execute_read(RELATED_SCHEMES, {"scheme_id": scheme_id})
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Query failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Query failed: {e}") from e
 
     return [
         RelatedSchemeResponse(

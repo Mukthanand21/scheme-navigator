@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { SchemeResponse } from "../types";
+import { useLanguage } from "../i18n/LanguageContext";
 
 function formatAmount(n?: number | null): string {
   if (n == null) return "—";
@@ -20,19 +21,40 @@ function getBenefitBadgeClass(type?: string | null): string {
 }
 
 export function SchemeCard({ scheme, index = 0 }: { scheme: SchemeResponse; index?: number }) {
+  const { t, lang } = useLanguage();
+
+  const translateBenefit = (type?: string | null): string => {
+    if (!type) return "N/A";
+    if (lang !== "te") return type;
+    const lower = type.toLowerCase();
+    if (lower.includes("grant")) return "గ్రాంట్ (Grant)";
+    if (lower.includes("loan")) return "రుణం (Loan)";
+    if (lower.includes("subsidy")) return "సబ్సిడీ (Subsidy)";
+    if (lower.includes("insurance")) return "భీమా (Insurance)";
+    return type;
+  };
+
+  const displayName = lang === "te" && scheme.telugu_name ? scheme.telugu_name : scheme.name;
+  const subName = lang === "te" && scheme.telugu_name ? scheme.name : scheme.telugu_name;
+  const displayDesc = lang === "te" && scheme.telugu_description ? scheme.telugu_description : scheme.description;
+
+  const successLabel = lang === "te"
+    ? `${scheme.success_rate === "high" ? "✓" : "○"} ${scheme.success_rate === "high" ? "అధిక" : scheme.success_rate === "medium" ? "మధ్యమ" : "తక్కువ"} విజయం`
+    : `${scheme.success_rate === "high" ? "✓" : "○"} ${scheme.success_rate} success`;
+
   return (
     <div className="card scheme-card" style={{ animationDelay: `${index * 0.06}s` }}>
       <div className="scheme-card-header">
         <div>
-          <h3>{scheme.name}</h3>
-          {scheme.telugu_name && <div className="telugu-name">{scheme.telugu_name}</div>}
+          <h3>{displayName}</h3>
+          {subName && <div className="telugu-name">{subName}</div>}
         </div>
         <span className={`badge ${getBenefitBadgeClass(scheme.benefit_type)}`}>
-          {scheme.benefit_type || "N/A"}
+          {translateBenefit(scheme.benefit_type)}
         </span>
       </div>
 
-      <p className="description">{scheme.description}</p>
+      <p className="description">{displayDesc}</p>
 
       <div className="amount-range">
         <span className="amount">{formatAmount(scheme.amount_min)}</span>
@@ -51,11 +73,13 @@ export function SchemeCard({ scheme, index = 0 }: { scheme: SchemeResponse; inde
         )}
         {scheme.success_rate && (
           <span className={`badge success-badge-${scheme.success_rate}`}>
-            {scheme.success_rate === "high" ? "✓" : "○"} {scheme.success_rate} success
+            {successLabel}
           </span>
         )}
         {scheme.processing_time_days && (
-          <span className="badge badge-muted">⏱ {scheme.processing_time_days}d</span>
+          <span className="badge badge-muted">
+            ⏱ {scheme.processing_time_days} {lang === "te" ? "రోజులు" : "days"}
+          </span>
         )}
       </div>
 
@@ -67,7 +91,7 @@ export function SchemeCard({ scheme, index = 0 }: { scheme: SchemeResponse; inde
           {scheme.tags.length > 4 && <span className="tag">+{scheme.tags.length - 4}</span>}
         </div>
         <Link to={`/schemes/${scheme.id}`} className="btn btn-outline btn-sm" style={{ marginLeft: "auto" }}>
-          Details →
+          {t("details")}
         </Link>
       </div>
     </div>

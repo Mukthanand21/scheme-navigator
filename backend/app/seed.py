@@ -6,7 +6,8 @@ Key design decisions:
 - All Cypher is parameterized via the official driver — never string-concatenated.
 - "any" gender → ALLOWS_GENDER to both male and female Gender nodes.
 - "any" caste → ALLOWS_CASTE to all 7 real CasteCategory nodes. "any" is NEVER a node.
-- Compound caste strings (e.g. "sc/st/bc/minority/ebc") are split into individual relationships.
+- Compound caste strings (e.g. "sc/st/bc/minority/ebc") are split
+  into individual relationships.
 - Flag fields use truthy detection: missing key = false, True/"required" = true.
 - success_rate mapped to numeric success_rank: high=3, medium=2, low=1.
 - All MERGE keys are .strip()'d to prevent duplicate nodes from whitespace.
@@ -16,7 +17,7 @@ Run: python -m app.seed
 
 import json
 import os
-import sys
+from typing import Any
 
 from app.db import get_db
 
@@ -40,7 +41,7 @@ FLAG_MAPPING = {
 }
 
 
-def is_truthy_flag(value) -> bool:
+def is_truthy_flag(value: Any) -> bool:
     """
     Detect truthy flag values across inconsistent data types.
     Handles: True (bool), "required" (string), missing key (treated as False).
@@ -52,7 +53,7 @@ def is_truthy_flag(value) -> bool:
     return False
 
 
-def seed_database():
+def seed_database() -> None:
     """Load schemes.json and seed all nodes + relationships into CognoDB."""
 
     # Resolve schemes.json path relative to this file's parent directory
@@ -61,7 +62,7 @@ def seed_database():
         "schemes.json",
     )
 
-    with open(seed_file, "r", encoding="utf-8") as f:
+    with open(seed_file, encoding="utf-8") as f:
         schemes = json.load(f)
 
     db = get_db()

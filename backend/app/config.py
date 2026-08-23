@@ -3,9 +3,9 @@ Configuration module — reads CognoDB credentials from environment variables.
 Uses pydantic-settings for validation. Never hardcode credentials.
 """
 
-from pydantic_settings import BaseSettings
-from pydantic import Field
 from dotenv import load_dotenv
+from pydantic import Field
+from pydantic_settings import BaseSettings
 
 # Load .env file (if present) before settings initialization
 load_dotenv()
@@ -40,11 +40,11 @@ def get_settings() -> Settings:
     Raises ValidationError with a clear message if any credential is missing.
     """
     try:
-        return Settings()
+        return Settings()  # type: ignore[call-arg]
     except Exception as e:
         raise SystemExit(
             "\n❌ Missing required environment variables.\n"
             "   Set COGNODB_URI, COGNODB_USER, COGNODB_PASSWORD in your .env file.\n"
             "   See .env.example for a template.\n\n"
             f"   Detail: {e}"
-        )
+        ) from e

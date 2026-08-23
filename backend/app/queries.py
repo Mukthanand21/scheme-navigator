@@ -5,19 +5,22 @@ All queries use driver parameterization ($variable syntax) — never string conc
 
 Query 1 (eligibility_match): Citizen-centric multi-hop traversal.
   Starts from Citizen node, traverses through shared Gender and CasteCategory nodes
-  to reach Scheme nodes, then filters by numeric ranges and RequirementFlag satisfaction.
+  to reach Scheme nodes, then filters by numeric ranges and
+  RequirementFlag satisfaction.
   This is the "relationally awkward in SQL" query — it would need 6+ JOINs across
   junction tables, subqueries for "all flags satisfied", and COALESCE for every range.
 
 Query 2 (related_schemes): Tag-weighted similarity.
   Finds schemes sharing Tag nodes (55 distinct, high discriminative power).
-  RequirementFlag sharing is a secondary signal (only 4 values, 17/19 share Bank Account).
+  RequirementFlag sharing is a secondary signal (only 4 values,
+  17/19 share Bank Account).
   Weighted score: tags × 3 + flags. Must share ≥1 tag for meaningful similarity.
 """
 
 # ── Query 1: Eligibility Match ───────────────────────────────────────────────
 # Parameters: $citizen_id (string)
-# Returns: list of matching Scheme records with documents, tags, business_types, individual_types
+# Returns: list of matching Scheme records with documents, tags,
+#          business_types, individual_types
 
 ELIGIBILITY_MATCH = """
 MATCH (c:Citizen {id: $citizen_id})
@@ -31,9 +34,15 @@ MATCH (c)-[:HAS_CASTE]->(cc:CasteCategory)<-[:ALLOWS_CASTE]-(s)
 // Null-safe numeric range checks (14/19 schemes have age_max: null)
 WHERE (s.age_min IS NULL OR s.age_min <= c.age)
   AND (s.age_max IS NULL OR c.age <= s.age_max)
-  AND (s.max_annual_income IS NULL OR c.annual_income IS NULL OR c.annual_income <= s.max_annual_income)
-  AND (s.max_annual_turnover IS NULL OR c.annual_turnover IS NULL OR c.annual_turnover <= s.max_annual_turnover)
-  AND (s.max_units_usage IS NULL OR c.units_usage IS NULL OR c.units_usage <= s.max_units_usage)
+  AND (s.max_annual_income IS NULL
+       OR c.annual_income IS NULL
+       OR c.annual_income <= s.max_annual_income)
+  AND (s.max_annual_turnover IS NULL
+       OR c.annual_turnover IS NULL
+       OR c.annual_turnover <= s.max_annual_turnover)
+  AND (s.max_units_usage IS NULL
+       OR c.units_usage IS NULL
+       OR c.units_usage <= s.max_units_usage)
 
 // Ensure ALL required flags are satisfied by the citizen
 WITH c, s
@@ -100,8 +109,8 @@ LIMIT 5
 // Fetch display data
 OPTIONAL MATCH (s2)-[:TAGGED]->(t:Tag)
 WITH s2, shared_tags, shared_flags, similarity_score, collect(DISTINCT t.name) AS tags
-OPTIONAL MATCH (s2)-[:TARGETS]->(bt:BusinessType)
-WITH s2, shared_tags, shared_flags, similarity_score, tags, collect(DISTINCT bt.name) AS business_types
+WITH s2, shared_tags, shared_flags, similarity_score, tags,
+     collect(DISTINCT bt.name) AS business_types
 OPTIONAL MATCH (s2)-[:TARGETS]->(it:IndividualType)
 
 RETURN s2.id AS id,
@@ -203,11 +212,11 @@ WITH s, documents, collect(DISTINCT t.name) AS tags
 OPTIONAL MATCH (s)-[:TARGETS]->(bt:BusinessType)
 WITH s, documents, tags, collect(DISTINCT bt.name) AS business_types
 OPTIONAL MATCH (s)-[:TARGETS]->(it:IndividualType)
-WITH s, documents, tags, business_types, collect(DISTINCT it.name) AS individual_types
-OPTIONAL MATCH (s)-[:ALLOWS_GENDER]->(g:Gender)
-WITH s, documents, tags, business_types, individual_types, collect(DISTINCT g.value) AS genders
+WITH s, documents, tags, business_types, individual_types,
+     collect(DISTINCT g.value) AS genders
 OPTIONAL MATCH (s)-[:ALLOWS_CASTE]->(cc:CasteCategory)
-WITH s, documents, tags, business_types, individual_types, genders, collect(DISTINCT cc.value) AS castes
+WITH s, documents, tags, business_types, individual_types, genders,
+     collect(DISTINCT cc.value) AS castes
 OPTIONAL MATCH (s)-[:REQUIRES_FLAG]->(rf:RequirementFlag)
 
 RETURN s.id AS id,
